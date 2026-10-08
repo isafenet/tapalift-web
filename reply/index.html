@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>A Tapalift trip answer</title>
+<meta name="description" content="Someone has answered your Tapalift trip. Open it in Tapalift to add it.">
+<meta name="theme-color" content="#FFC21A">
+<link rel="canonical" href="https://tapalift.isafenet.app/reply/index.html">
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Tapalift">
+<meta property="og:title" content="A Tapalift trip answer">
+<meta property="og:description" content="Someone has answered your Tapalift trip. Open it in Tapalift to add it.">
+<meta property="og:url" content="https://tapalift.isafenet.app/reply/index.html">
+<meta property="og:image" content="https://tapalift.isafenet.app/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A Tapalift trip answer">
+<meta name="twitter:description" content="Someone has answered your Tapalift trip. Open it in Tapalift to add it.">
+<meta name="twitter:image" content="https://tapalift.isafenet.app/images/og.jpg">
+<meta name="apple-itunes-app" content="app-id=6818621890">
+<link rel="preload" href="../fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+.g{max-width:520px;margin:0 auto;padding:20px 16px 48px}
+.g-top{display:flex;align-items:center;gap:10px;font-weight:850;font-size:1.15rem;margin-bottom:18px;color:var(--text);text-decoration:none}
+.g-top img{width:30px;height:30px;border-radius:8px}
+.g-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;margin-bottom:14px}
+.g h1{font-size:clamp(1.7rem,7vw,2.2rem);letter-spacing:-.03em;margin:0 0 10px}
+.g .answer{font-weight:900;font-size:1.6rem;margin:6px 0}
+.g .btn{display:flex;width:100%;margin-top:14px}
+.g .hint{color:var(--soft);font-size:.92rem;margin:12px 0 0}
+.g footer{border:0;padding:20px 0 0;font-size:.85rem;text-align:center}
+[hidden]{display:none!important}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "A Tapalift trip answer", "url": "https://tapalift.isafenet.app/reply/index.html", "description": "Someone has answered your Tapalift trip. Open it in Tapalift to add it.", "inLanguage": "en-GB", "isPartOf": {"@type": "WebSite", "name": "Tapalift", "url": "https://tapalift.isafenet.app/"}, "publisher": {"@type": "Organization", "@id": "https://isafenet.app/#organization", "name": "iSafeNet", "url": "https://isafenet.app/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tapalift", "item": "https://tapalift.isafenet.app/"}, {"@type": "ListItem", "position": 2, "name": "Answer", "item": "https://tapalift.isafenet.app/reply/index.html"}]}</script>
+</head>
+<body>
+<div class="g">
+  <a class="g-top" href="../"><img width="192" height="192" src="../images/icon-192.png" alt="">Tapalift</a>
+
+  <div id="broken" class="g-card" hidden>
+    <h1>This answer isn't complete</h1>
+    <p>Part of the link may have been cut off. Ask them to send it again, or copy their whole message and tap <b>Paste</b> on the trip in Tapalift.</p>
+  </div>
+
+  <div id="page" class="g-card" hidden>
+    <h1>An answer for your trip</h1>
+    <p class="answer" id="answer"></p>
+    <p id="detail" style="color:var(--soft)"></p>
+    <a class="btn btn-yellow" id="open" href="#">Add it in Tapalift</a>
+    <p class="hint" id="iphone">Open this on the iPhone of whoever's coordinating the trip, with Tapalift on it.</p>
+    <p class="hint" id="other" hidden>This answer is for someone who's organising a trip in Tapalift, on iPhone. If that's you, open this link on your iPhone.</p>
+  </div>
+
+  <footer>
+    This page doesn't send the answer anywhere: it's in the link, and goes only to Tapalift on your iPhone.<br>
+    <a href="../privacy.html#guests">Privacy</a> · <a href="../">What's Tapalift?</a> · Copyright 2026 iSafeNet
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var fragment = location.hash.slice(1);
+  var reply;
+  try {
+    var b64 = fragment.replace(/-/g, "+").replace(/_/g, "/");
+    while (b64.length % 4) b64 += "=";
+    reply = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b64), function (c) { return c.charCodeAt(0); })));
+    if (!reply || !reply.t || !reply.g || ["yes", "maybe", "no"].indexOf(reply.r) < 0) throw new Error("incomplete");
+  } catch (e) {
+    $("broken").hidden = false;
+    return;
+  }
+  $("page").hidden = false;
+  $("answer").textContent = { yes: "Yes, coming", maybe: "Maybe", no: "Not coming" }[reply.r];
+  var parts = [];
+  if (reply.r !== "no") {
+    if (reply.s > 0) parts.push("Can drive, with " + reply.s + " spare seat" + (reply.s === 1 ? "" : "s"));
+    else parts.push({ both: "Needs a lift there and back", thereOnly: "Needs a lift there", homeOnly: "Needs a lift home", ownWay: "Making their own way" }[reply.nd || "both"]);
+    if (reply.pk) parts.push("From " + reply.pk);
+    else if (typeof reply.la === "number") parts.push("From where they were when they answered");
+  }
+  $("detail").textContent = parts.join(" · ");
+  $("open").href = "tapalift://reply#" + fragment;
+
+  var ios = /iPhone|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && "ontouchend" in document);
+  if (!ios) { $("open").hidden = true; $("iphone").hidden = true; $("other").hidden = false; }
+})();
+</script>
+</body>
+</html>
