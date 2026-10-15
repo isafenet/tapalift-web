@@ -138,7 +138,8 @@
   if (lift.x && Date.now() > lift.x * 1000) { $("over").hidden = false; $("form").hidden = true; return; }
 
   $("hello").textContent = "Hi " + (lift.n || "there") + ", can " + friend + " come?";
-  $("ask").textContent = parent + ", " + child + "'s parent, is asking.";
+  // A 16 or 17 year old can ask themselves, with their parents' say-so (FriendLinks.Invite.cs).
+  $("ask").textContent = lift.cs ? child + " is asking. " + child + "'s parents know." : parent + ", " + child + "'s parent, is asking.";
   $("dropLabel").textContent = "Where should " + friend + " be dropped?";
   $("withRider").textContent = "With " + child;
   $("homeNote").textContent = "The driver will text you to check where.";
