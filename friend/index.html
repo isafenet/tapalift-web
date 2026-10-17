@@ -173,8 +173,10 @@
     var text = words + "\nTap to add it to Tapalift: " + url;
     $("message").textContent = text;
     $("sendTitle").textContent = "Now send it to " + parent;
-    $("sendText").textContent = "Your answer goes back to " + parent + " in a message from your phone. When they tap the link in it, the lift is updated.";
     var digits = (lift.ph || "").replace(/[^\d+]/g, "");
+    // Say the number it goes to: anyone can make a link that names parent, so the number is what to check
+    // (security review, 17 Oct 2026).
+    $("sendText").textContent = "Your answer goes back to " + parent + " in a message from your phone. When they tap the link in it, the lift is updated." + (digits ? " It goes to " + digits + ": only send it if you know " + parent + " and that's their number." : "");
     var ios = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && "ontouchend" in document;
     $("sms").href = "sms:" + digits + (ios ? "&" : "?") + "body=" + encodeURIComponent(text);
     $("sms").textContent = digits ? "Text it to " + parent : "Text it";
