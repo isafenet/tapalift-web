@@ -275,9 +275,11 @@
     var text = guest + "'s answer for " + trip.nm + ": " + summary() + ".\nTap to add it to Tapalift: " + url;
     $("message").textContent = text;
     $("sendTitle").textContent = "Now send it to " + coordinator;
-    $("sendText").textContent = "Your answer goes back to " + coordinator + " in a message from your phone. When they tap the link in it, it's added to the trip.";
 
     var digits = (trip.p || "").replace(/[^\d+]/g, "");
+    // Say the number it goes to: anyone can make a link that names coordinator, so the number is what to check
+    // (security review, 17 Oct 2026).
+    $("sendText").textContent = "Your answer goes back to " + coordinator + " in a message from your phone. When they tap the link in it, it's added to the trip." + (digits ? " It goes to " + digits + ": only send it if you know " + coordinator + " and that's their number." : "");
     var ios = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && "ontouchend" in document;
     $("sms").href = "sms:" + digits + (ios ? "&" : "?") + "body=" + encodeURIComponent(text);
     $("sms").textContent = digits ? "Text it to " + coordinator : "Text it";
